@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Player Statistic Lookup</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #eee;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: #1e1e1e;
+      padding: 20px 24px;
+      border-radius: 8px;
+      width: 320px;
+      box-shadow: 0 0 16px rgba(0, 0, 0, 0.6);
+    }
+
+    h1 {
+      font-size: 18px;
+      margin: 0 0 16px;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 12px;
+      border-radius: 4px;
+      border: 1px solid #555;
+      background: #222;
+      color: #eee;
+      box-sizing: border-box;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      background: #4caf50;
+      color: white;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #43a047;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Player Statistic Lookup</h1>
+    <form id="lookup-form">
+      <label for="name">Name</label>
+      <input id="name" type="text" placeholder="Name" required>
+
+      <label for="domainName">Domain name (leave a blank if its empty)</label>
+      <input id="domainName" type="text" placeholder="neocities, netlify, github or other">
+
+      <label for="levelDomain">Level domain (.com, .app, .io or other)</label>
+      <input id="levelDomain" type="text" placeholder=".com, .app, .io or other" required>
+
+      <button type="submit">Tamam</button>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById("lookup-form");
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const domainName = document.getElementById("domainName").value.trim();
+      let levelDomain = document.getElementById("levelDomain").value.trim();
+
+      if (!name || !levelDomain) {
+        return;
+      }
+
+      if (levelDomain.startsWith(".")) {
+        levelDomain = levelDomain.slice(1);
+      }
+
+      let host = name;
+      if (domainName) {
+        host += "." + domainName;
+      }
+      host += "." + levelDomain;
+
+      const url = "https://" + host;
+
+      window.location.href = url;
+    });
+  </script>
+</body>
+</html>
